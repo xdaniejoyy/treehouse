@@ -28,7 +28,7 @@ class Portfolio(object):
                     start_date,
                     end_date):
         """
-        Get VaR, CVaR based on portfolio returns between start/end date
+        Get portfolio returns between start/end date
         :param start_date: date
         :param end_date: date
         :return:
@@ -57,7 +57,7 @@ class Portfolio(object):
     def get_historical_var(self,
                            var_pct=95):
         """
-        Get VaR, CVaR based on portfolio returns between start/end date
+        Get VaR, CVaR based on actual returns
         :param var_pct: float, % VaR, CVaR to calculate
         :return: list containing VaR, CVaR
         """
@@ -73,7 +73,7 @@ class Portfolio(object):
     def get_parametric_var(self,
                            var_pct=95):
         """
-        Get VaR, CVaR based on distribution of portfolio returns between start/end date
+        Get VaR, CVaR based on distribution of actual returns
         :param var_pct: float, % VaR, CVaR to calculate
         :return: list containing VaR, CVaR
         """
@@ -107,5 +107,3 @@ q4 = Portfolio(df)
 q4.get_returns(start_date, end_date)
 print("1D Historical VaR/CVaR:", q4.get_historical_var(var_pct))
 print("1D Parametric VaR/CVaR:", q4.get_parametric_var(var_pct))
-print("1D Parametric VaR/CVaR:", q4.get_parametric_var(var_pct))
-
