@@ -111,7 +111,7 @@ class Portfolio(object):
         Assumptions:
         1. Earliest returns available are 1 Jan 2016- no data is available prior
         to make rebal decisions.
-        2. Portfolio starts of equal-weight all 7 assets.
+        2. Portfolio starts off equal-weighting all 7 assets.
         3. Each rebal, we re-weight the assets based on how they perform
         (+/- delta)
 

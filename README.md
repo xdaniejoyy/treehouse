@@ -4,9 +4,10 @@
 - Q1 uses the given dataset to solve.
 
 - Q2 & Q3 uses sample data to solve.
+The function `pascal_triangle` can run for larger layers efficiently.
 
 - Q4 uses packages `yfinance` and `panda_datareader` to get Yahoo! data.
-For the backtest, Iimplemented a risk-adjusted momentum strategy.
+For the backtest, I implemented a risk-adjusted momentum strategy.
 Several parameter variations are run, with Sharpe ratios and cumulative 
 line charts plotted. 
 
