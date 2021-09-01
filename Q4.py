@@ -1,7 +1,6 @@
 from dateutil.parser import parse
 from pandas_datareader import data as pdr
 from scipy.stats import *
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import yfinance as yf
@@ -122,9 +121,8 @@ class Portfolio(object):
         """
         start_date = '2016-01-01'
         end_date = '2016-12-31'
-        num_stocks = len(self.portfolio)
 
-        assert long_days > lookback_days
+        assert lookback_days > 0
 
         if len(self.prices) == 0:
             self.get_prices(start_date, end_date)
@@ -137,15 +135,13 @@ class Portfolio(object):
         result.iloc[0, :] = 1.0 / result.shape[1]
 
         for d1, d2 in zip(dates[:-1], dates[1:]):
-            subset = self.prices.loc[d1:d2].copy(deep=True)
-            signal = (subset.tail(lookback_days).pct_change().sum()) \
-                  / self.prices.loc[:d2].std()
+            subset = self.prices.loc[d1:d2].copy(deep=True).pct_change()
+            signal = (subset.tail(lookback_days).sum()) / self.prices.loc[:d2].std()
             signal_rank = signal.rank()
             signals.loc[d2, :] = signal
 
             # Get weights
-            wgt_chg = signal_rank.apply(lambda x: -delta if x <= 2 else 
-            (delta if x >= 6 else 0))
+            wgt_chg = signal_rank.apply(lambda x: -delta if x <= 2 else (delta if x >= 6 else 0))
             new_wgt = result.loc[d1] + wgt_chg
 
             result.loc[d2, :] = new_wgt / sum(new_wgt)
@@ -192,6 +188,7 @@ for lookback_days in [3, 5, 10]:
         strategy_returns[identifier] = (q4.market_rtn * wgts).sum(axis=1)
 
 # Sharpe Ratios
+print("Sharpe Ratios (for Y=2016)")
 print(strategy_returns.sum() / (strategy_returns.std() * np.sqrt(260)))
 
 ## Plot of permutations

@@ -20,3 +20,5 @@ def pascal_triangle(N):
     # even number, symmetrical list
     return vals + vals[::-1]
 
+n = 10
+print(f"n={n}: ", pascal_triangle(n))
